@@ -1,0 +1,246 @@
+document.addEventListener('DOMContentLoaded', function() {
+    const cartToggle = document.getElementById("cart-toggle");
+    const closeCart = document.getElementById("close-cart");
+    const cartSidebar = document.getElementById("cart");
+    const cartContainer = document.querySelector('.cart-container');
+    const logolink = document.getElementById('logo-link');
+
+    // Función para detectar si es un dispositivo táctil
+    const isTouchDevice = () => {
+        return window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+    };
+
+    // Función para manejar la apertura y cierre del carrito
+    const handleCartToggle = () => {
+        cartSidebar.classList.toggle("open");
+    };
+
+    // Eventos para abrir/cerrar el carrito
+    if (cartToggle && closeCart && cartSidebar) {
+        if (isTouchDevice()) {
+            // Móvil: Click para abrir/cerrar
+            cartToggle.addEventListener("click", handleCartToggle);
+            closeCart.addEventListener("click", handleCartToggle);
+
+            // Deshabilitar el logo en móvil (opcional, revisa si realmente lo necesitas)
+            if (logolink && window.innerWidth <= 768) {
+                logolink.addEventListener("click", function(e) {
+                    e.preventDefault();
+                });
+            }
+        } else {
+            // Escritorio: Hover para abrir/cerrar
+            cartContainer.addEventListener('mouseenter', () => cartSidebar.classList.add("open"));
+            cartContainer.addEventListener('mouseleave', () => cartSidebar.classList.remove("open"));
+        }
+    }
+
+    // Productos (sin cambios)
+    const products = [
+        { id: 1, name: "Pizza Margarita", price: 30000, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTY7RbPLpeQGEKr-JMLB6L9kRdCTMtUbFJfJw&s" },
+        { id: 2, name: "Hamburguesa Clásica", price: 15000, img: "https://imag.bonviveur.com/hamburguesa-clasica.jpg" },
+        { id: 3, name: "Pasta Alfredo", price: 27500, img: "https://www.recetasnestle.com.mx/sites/default/files/srh_recipes/7e918da02773a54eea60d7bf336d6bb6.jpg" },
+        { id: 4, name: "Pizza Hawaiana", price: 30000, img: "https://thumbs.dreamstime.com/b/pizza-hawaiana-49611709.jpg" },
+        { id: 5, name: "Spaghetti Boloñesa", price: 28000, img: "https://www.laespanolaaceites.com/wp-content/uploads/2019/05/espaguetis-a-la-bolonesa-1080x671.jpg" },
+        { id: 6, name: "Ensalada César", price: 22000, img: "https://sarasellos.com/wp-content/uploads/2024/07/ensalada-cesar1.jpg" },
+        { id: 7, name: "Sushi", price: 40000, img: "https://cloudfront-us-east-1.images.arcpublishing.com/elespectador/JLYGWDUSXFDI7ITQECOXNAG674.jpg" },
+        { id: 8, name: "Tacos al pastor", price: 27000, img: "https://comedera.com/wp-content/uploads/sites/9/2017/08/tacos-al-pastor-receta.jpg" },
+        { id: 9, name: "Sandwich Club", price: 24000, img: "https://okdiario.com/img/2021/07/30/sandwich-club.jpg" },
+        { id: 10, name: "Pollo a la Parrilla", price: 35000, img: "https://diabetesfoodhub.org/sites/foodhub/files/styles/recipe_hero_banner_720w/public/1948-honey-lime-chicken-DFH-MJ20.jpg?h=48784f2c&itok=U7I-JyOA" },
+        { id: 11, name: "Arepas Rellenas", price: 20000, img: "https://i.pinimg.com/736x/ac/91/01/ac91013c868cd74b19b13db48e951386.jpg" },
+        { id: 12, name: "Lasaña de Carne", price: 32000, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRjCnEj8ga3_zb4XhCuNyXm9oke8Q2ZDSGQA&s" }
+    ];
+
+    let cart = [];
+
+    const productListContainer = document.getElementById("product-list");
+    const cartItemsList = document.getElementById("cart-items");
+    const cartTotalElement = document.getElementById("cart-total");
+    const clearCartButton = document.getElementById("clear-cart");
+    const cartCountSpan = document.getElementById("cart-count");
+
+    function renderProducts() {
+        if (!productListContainer) return;
+
+        productListContainer.innerHTML = "";
+
+        products.forEach(product => {
+            const productCard = document.createElement("div");
+            productCard.className = "product-card";
+            productCard.innerHTML = `
+                <img src="${product.img}" alt="${product.name}">
+                <h3>${product.name}</h3>
+                <p class="price">$${product.price.toLocaleString()}</p>
+                <button class="add-to-cart-btn" data-id="${product.id}">Agregar</button>
+            `;
+            productListContainer.appendChild(productCard);
+        });
+        addEventListenersToButtons();
+    }
+
+    function addEventListenersToButtons() {
+        const addToCartButtons = document.querySelectorAll(".add-to-cart-btn");
+        addToCartButtons.forEach(button => {
+            button.addEventListener("click", function() {
+                const productId = parseInt(this.dataset.id);
+                addToCart(productId, this);
+            });
+        });
+    }
+
+    function addToCart(id, button = null) {
+        let product = products.find(p => p.id === id);
+
+        if (!product && button) {
+            const specialItem = button.closest(".special-item");
+            if (specialItem) {
+                const name = specialItem.querySelector("h3")?.innerText || "Producto Especial";
+                let priceText = specialItem.querySelector(".price")?.innerText || "0";
+                priceText = priceText.replace(/[$.]/g, "");
+                const price = parseFloat(priceText) || 0;
+                const img = specialItem.querySelector("img")?.src || "";
+
+                product = { id, name, price, img };
+            }
+        }
+
+        if (product) {
+            const existingItem = cart.find(item => item.id === id);
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+            updateCart();
+        }
+    }
+
+    function removeFromCart(id) {
+        cart = cart.filter(item => item.id !== id);
+        updateCart();
+    }
+
+    function renderCartItems() {
+        if (!cartItemsList) return;
+
+        cartItemsList.innerHTML = "";
+
+        cart.forEach(item => {
+            const listItem = document.createElement("li");
+            listItem.innerHTML = `
+                <span class="item-name">${item.name} (x${item.quantity})</span>
+                <span class="item-price">$${(item.price * item.quantity).toLocaleString()}</span>
+                <button class="remove-item-btn" data-id="${item.id}">Eliminar</button>
+            `;
+            cartItemsList.appendChild(listItem);
+        });
+
+        const removeItemButtons = document.querySelectorAll("#cart-items .remove-item-btn");
+        removeItemButtons.forEach(button => {
+            button.addEventListener("click", function() {
+                const itemId = parseInt(this.dataset.id);
+                removeFromCart(itemId);
+            });
+        });
+    }
+
+    function updateCartTotal() {
+        if (!cartTotalElement) return;
+
+        const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        cartTotalElement.innerText = `$${total.toLocaleString()}`;
+    }
+
+    function updateCartCount() {
+        if (!cartCountSpan) return;
+
+        const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+        cartCountSpan.innerText = count;
+    }
+
+    function updateCart() {
+        renderCartItems();
+        updateCartTotal();
+        updateCartCount();
+    }
+
+    if (clearCartButton) {
+        clearCartButton.addEventListener('click', () => {
+            cart = [];
+            updateCart();
+        });
+    };
+
+    // Menú responsive
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+        });
+    }
+
+    // Checkout
+    document.getElementById("checkout-button").addEventListener("click", function() {
+        let cartTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+        if (cartTotal <= 0) {
+            alert("El carrito está vacío. Por favor, agrega productos antes de realizar el pedido.");
+            return;
+        }
+
+        let customerName = document.getElementById("customer-name").value;
+        let customerEmail = document.getElementById("customer-email").value;
+
+        if (!customerName || !customerEmail) {
+            alert("Por favor, ingresa tu nombre y correo.");
+            return;
+        }
+
+        let cartItems = cart.map(item => ({
+            productName: item.name,
+            quantity: item.quantity,
+            price: item.price
+        }));
+
+        let orderData = {
+            customerName,
+            customerEmail,
+            cartItems,
+            cartTotal
+        };
+
+        console.log("Datos del pedido:", orderData);
+
+        fetch("process_order.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(orderData),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.orderNumber && data.cartTotal !== undefined) {
+                alert(`¡Gracias por tu compra! Tu número de pedido es: ${data.orderNumber}`);
+                alert(`Total: $${data.cartTotal.toLocaleString()}`);
+                alert(`Estado del pedido: ${data.status}`);
+            } else {
+                alert("Hubo un problema al procesar el pedido. Intenta nuevamente.");
+                console.error("Datos del servidor:", data);
+            }
+
+            cart = [];
+            updateCart();
+        })
+        .catch(error => {
+            console.error("Error al procesar el pedido:", error);
+            alert("Hubo un problema al realizar el pedido. Intenta nuevamente.");
+        });
+    });
+
+    // Inicialización
+    renderProducts();
+    updateCart();
+});

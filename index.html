@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Of Food's</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicoin.png" type="jpg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <head>
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+        />
+      </head>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+    </style>
+
+</head>
+
+<body>
+    <div class="hero-background"></div>  <header class="main-header" role="banner">
+        <a href="/" class="logo" id="logo-link">
+            <img src="/logo-restaurante.png" alt="Logo Master Of Food's">
+            <h1 class="title-header">Master Of Food's</h1>
+        </a>
+        <a href="https://wa.me/573205656351?text="
+        class="whatsapp-button" target="_blank">
+        <i class="fab fa-whatsapp"></i></a>
+
+        <nav class="main-nav" role="navigation">
+            <button id="menu-toggle" class="menu-responsive">
+                <i class="fas fa-bars"></i>
+              </button>    
+            <ul id="nav-links">
+                <li><a href="#inicio">INICIO</a></li>
+                <li><a href="#especiales">ESPECIALES</a></li>
+                <li><a href="#contacto">CONTACTO</a></li>
+            </ul>
+        </nav>
+        <div class="cart-container">
+            <button id="cart-toggle" class="cart-button">
+                <i class="fas fa-shopping-cart"></i>
+                Carrito (<span id="cart-count">0</span>)
+            </button>
+            <aside id="cart" class="cart-sidebar">
+                <div class="cart-header">
+                    <h2 class="cart-title"><i class="fas fa-shopping-cart"></i> Tu Carrito</h2>
+                    <button id="close-cart" class="close-button"><i class="fas fa-times"></i></button>
+                </div>
+                <h3>Detalles de tu Pedido:</h3>
+                <ul id="cart-items">
+                    <li>
+                        <span class="item-name">Producto 1 (2)</span>
+                        <span class="item-price">$10.00</span>
+                    </li>
+                </ul>
+                <form class="customer-info">
+                    <label for="customer-name">Nombre:</label>
+                    <input type="text" id="customer-name" name="customer-name" placeholder="Tu nombre" required minlength="3">
+                    
+                    <label for="customer-email">Correo Electrónico:</label>
+                    <input type="email" id="customer-email" name="customer-email" placeholder="Tu correo electrónico" required minlength="6">
+                    
+                    <p class="total">Total: <span id="cart-total">0.00</span></p>
+                    
+                    <button type="button" id="clear-cart" class="clear-button">
+                        <i class="fas fa-trash"></i> Vaciar Carrito
+                    </button>
+                    
+                    <button type="submit" id="checkout-button" class="checkout-button">
+                        <i class="fas fa-check-circle"></i> Realizar Pedido
+                    </button>
+                </form>                
+            </aside>
+        </div>
+    </header>
+
+    <section id="inicio" class="hero">
+        <div class="overlay"></div>
+        <div class="hero-content">
+          <h1>Bienvenidos a Master Of Food's</h1>
+          <p>Prepárense para descubrir sabores únicos que deleitarán sus sentidos.</p>
+          <a href="#menu" class="hero-btn">Explora ahora</a>
+        </div>
+      </section>
+
+    <main class="container" role="main">
+        <section id="menu" class="menu-section">
+            <h2>Nuestro Delicioso Menú</h2>
+            <div id="product-list" class="product-grid">
+                </div>
+        </section>
+
+        <section id="especiales" class="specials-section">
+            <h2>Especiales de Hoy</h2>
+            <div class="specials-grid">
+                <article class="special-item">
+                    <img src="https://cdn.colombia.com/gastronomia/2011/08/02/bandeja-paisa-1616.gif" alt="Bandeja Paisa">
+                    <h3>Bandeja Paisa</h3>
+                    <p class="text-special-section">Descubre la riqueza de nuestra tierra en cada ingrediente de este plato
+                        emblemático. Frijoles tiernos, arroz suelto, carne molida sazonada, chicharrón carnudo, chorizo lleno
+                        de sabor, morcilla tradicional, huevo con yema dorada, plátano maduro que endulza, aguacate cremoso y
+                        arepa. </p>
+                    <span class="price">$30.000</span>
+                    <button class="add-to-cart-btn" data-id="13">Agregar al carrito</button>
+                </article>
+                <article class="special-item">
+                    <img src="https://i.ytimg.com/vi/8X_1j9rWEj4/hq720.jpg?sqp=-oaymwE7CK4FEIIDSFryq4qpAy0IARUAAAAAGAElAADIQj0AgKJD8AEB-AH-CYAC0AWKAgwIABABGHIgVCgsMA8=&rs=AOn4CLBfEwbWaugTR0zxP7USWA-h_zEbGw" alt="Cazuela">
+                    <h3>Cazuela</h3>
+                    <p class="text-special-section">Una explosión de sabores tradicionales de nuestra tierra. Frijoles
+                        cargamanto, maiz tierno, chicharrón crocante, ripio de papa, carne molida jugosa, chorizo santarrosano,
+                        plátano maduro dulce y aguacate fresco. ¡Un plato completo para verdaderos amantes de la cocina
+                        antioqueña!</p>
+                    <span class="price">$22.000</span>
+                    <button class="add-to-cart-btn" data-id="14">Agregar al carrito</button>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer" role="contentinfo">
+        <section id="contacto" class="contact-section">
+            <h2>Contáctanos</h2>
+            <p>¡Estamos listos para atenderte!</p>
+            <p>Teléfono: 3205656351</p>
+            <p>Email: alejoloaiza1998@gmail.com</p>
+        </section>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
