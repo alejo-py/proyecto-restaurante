@@ -2,20 +2,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const cartToggle = document.getElementById("cart-toggle");
     const closeCart = document.getElementById("close-cart");
     const cartSidebar = document.getElementById("cart");
-    const cartContainer = document.querySelector('.cart-container');
+    const cartContainer = document.querySelector('cart-container');
     const logolink = document.getElementById('logo-link');
 
-    // función para detectar si es un dispositivo táctil
     const isTouchDevice = () => {
         return window.matchMedia("(hover: none) and (pointer: coarse)").matches;
     };
 
-    // función para manejar la apertura y cierre del carrito
     const handleCartToggle = () => {
         cartSidebar.classList.toggle("open");
     };
 
-    // eventos para abrir y cerrar el carrito
     if (cartToggle && closeCart && cartSidebar) {
         if (isTouchDevice()) {
             cartToggle.addEventListener("click", handleCartToggle);
@@ -27,7 +24,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
         } else {
-            // Hover para abrir y cerrar pc
             cartContainer.addEventListener('mouseenter', () => cartSidebar.classList.add("open"));
             cartContainer.addEventListener('mouseleave', () => cartSidebar.classList.remove("open"));
         }
