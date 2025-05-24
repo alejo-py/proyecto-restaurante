@@ -1,0 +1,128 @@
+html {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+    overflow: hidden;
+
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; 
+    flex-direction: column;
+    padding: 1rem;
+    background:  linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4)),
+    url(../../images/background-login.jpg) no-repeat center center/cover;
+    
+
+}
+
+.form {
+    backdrop-filter: blur(4px);
+    padding: 4.2rem;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.form h2 {
+    color: #ffffff;
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+}
+
+.form input {
+    width: 100%;
+    padding: 0.6rem;
+    margin-top: 10px;
+    border: 2px solid rgba(0, 0, 0, 0);
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.2);
+    color: #fff;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form input:focus {
+    border-color: #901302;
+    outline: none;
+}
+
+.form button {
+    width: 100%;
+    padding: 0.6rem;
+    background-color: #901302;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 1rem;
+    
+}
+
+.form button:hover {
+    background-color: #5c0000;
+}
+
+.form a {
+    color: #f0f0f0;
+    text-align: center;
+    display: block;
+    margin-top: 1rem;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.form a:hover {
+    color: #901302;
+}
+
+@media (max-width: 480px) {
+    .form {
+        padding: 1rem;
+        border-radius: 8px;
+    }
+
+    .form h2 {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+    }
+
+    .form input,
+    .form button {
+        padding: 0.5rem;
+        margin-top: 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .form a {
+        font-size: 0.8rem;
+    }
+}
+
+.error-message {
+    color: #0b0b0b; 
+    background-color: #940000; 
+    border: 1px solid #940000;
+    padding: 10px;
+    margin-bottom: 15px; 
+    border-radius: 5px;
+    font-size: 1.2em;
+    text-align: center; 
+    font-weight: bold;
+}

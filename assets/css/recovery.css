@@ -1,0 +1,119 @@
+* {
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Montserrat', sans-serif;
+}
+.recovery-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; 
+    flex-direction: column;
+    padding: 1rem;
+    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4)),
+    url(../../images/background-login.jpg) no-repeat center center/cover;
+}
+
+.recovery-form {
+    backdrop-filter: blur(4px);
+    padding: 4.2rem;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.recovery-form h2 {
+    color: #ffffff;
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+}
+
+.recovery-form p {
+    font-size: 1rem;
+    
+}
+.recovery-form input {
+    width: 100%;
+    padding: 0.6rem;
+    margin-top: 10px;
+    border: 2px solid rgba(0, 0, 0, 0);
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.2);
+    color: #fff;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.recovery-form input:focus {
+    border-color: #901302;
+    outline: none;
+}
+
+.recovery-form button {
+    width: 100%;
+    padding: 0.6rem;
+    background-color: #901302;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 1rem;
+}
+
+.recovery-form button:hover {
+    background-color: #5c0000;
+}
+
+.recovery-form a {
+    color: #f0f0f0;
+    display: block;
+    margin-top: 1rem;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.recovery-form a:hover {
+    color: #901302;
+}
+
+.error-message {
+    color: #fff; 
+    background-color: #5d0000; 
+    padding: 10px;
+    margin-bottom: 10px; 
+    margin-top: 20px;
+    border-radius: 5px;
+    font-size: 1em;
+    text-align: center; 
+    
+}
+
+@media (max-width: 768px) {
+    .recovery-form {
+        padding: 1rem;
+        border-radius: 8px;
+    }
+
+    .recovery-form h2 {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+    }
+
+    .recovery-form input,
+    .recovery-form button {
+        padding: 0.5rem;
+        margin-top: 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .recovery-form a {
+        font-size: 0.8rem;
+    }
+}
